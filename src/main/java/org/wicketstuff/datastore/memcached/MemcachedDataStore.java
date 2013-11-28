@@ -204,26 +204,20 @@ public class MemcachedDataStore implements IDataStore
 		// See net.spy.memcached.MemcachedClient.set(java.lang.String, int, java.lang.Object)()
 //		Time timeToExpire = Time.now().add(expirationTime);
 
-		final SortedSet<String> _keys = keys;
-
-		OperationFuture<Boolean> set = client.set(key, (int) expirationTime.getMilliseconds(), data);
-		set.addListener(new OperationCompletionListener()
-		{
-			@Override
-			public void onComplete(OperationFuture<?> future) throws Exception
-			{
-				_keys.add(key);
-				LOG.debug("Stored data for session '{}' and page id '{}'", sessionId, pageId);
-			}
-		});
+		client.set(key, (int) expirationTime.getMilliseconds(), data);
+		keys.add(key);
+		LOG.debug("Stored data for session '{}' and page id '{}'", sessionId, pageId);
 	}
 
 	@Override
 	public void destroy()
 	{
-		Duration timeout = settings.getShutdownTimeout();
-		LOG.info("Shutting down gracefully for {}", timeout);
-		client.shutdown(timeout.getMilliseconds(), TimeUnit.MILLISECONDS);
+		if (client != null)
+		{
+			Duration timeout = settings.getShutdownTimeout();
+			LOG.info("Shutting down gracefully for {}", timeout);
+			client.shutdown(timeout.getMilliseconds(), TimeUnit.MILLISECONDS);
+		}
 	}
 
 	@Override
