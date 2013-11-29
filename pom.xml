@@ -19,20 +19,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mycompany</groupId>
+	<groupId>com.github.marting</groupId>
 	<artifactId>wicket-memcached-data-store</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
-		<!-- TODO project name  -->
-	<name>quickstart</name>
-	<description></description>
-	<!--
-		<organization>
-			<name>company name</name>
-			<url>company url</url>
-		</organization>
-	-->
+	<version>0.1.0-SNAPSHOT</version>
+	<name>Apache Wicket Memcached Page Store</name>
+	<description>An implementation of Apache Wicket's IDataStore that uses Memcached as a backend</description>
+
+	<organization>
+		<name>MGSolutions Ltd</name>
+		<url>https://github.com/martin-g/</url>
+	</organization>
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -40,47 +45,64 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+
+	<developers>
+		<developer>
+			<id>martin-g</id>
+			<name>Martin Grigorov</name>
+			<email>mgrigorov@apache.org</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>git@github.com:martin-g/wicket-memcached-data-store.git</url>
+		<connection>scm:git:git@github.com:martin-g/wicket-memcached-data-store.git</connection>
+		<developerConnection>scm:git:git@github.com:martin-g/wicket-memcached-data-store.git</developerConnection>
+	</scm>
+
 	<properties>
-		<wicket.version>6.13.0-SNAPSHOT</wicket.version>
+		<wicket.version>6.12.0</wicket.version>
 		<jetty.version>7.6.13.v20130916</jetty.version>
+		<spymemcached.version>2.10.2</spymemcached.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- allowed values: R7, 1.0, 1.5, 2.0 or none -->
-		<wtp.version>none</wtp.version>
 	</properties>
+
 	<dependencies>
-		<!--  WICKET DEPENDENCIES -->
+
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
-		<!-- OPTIONAL DEPENDENCY
+
 		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-extensions</artifactId>
-			<version>${wicket.version}</version>
+			<groupId>net.spy</groupId>
+			<artifactId>spymemcached</artifactId>
+			<version>${spymemcached.version}</version>
 		</dependency>
-		-->
 
-        <dependency>
-            <groupId>net.spy</groupId>
-            <artifactId>spymemcached</artifactId>
-            <version>2.10.2</version>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 
-		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.4</version>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>${log4j.version}</version>
+			<scope>test</scope>
 		</dependency>
 
-		<!--  JUNIT DEPENDENCY FOR TESTING -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -95,7 +117,9 @@
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
 	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -133,6 +157,18 @@
 			<plugin>
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+			</plugin>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+			</plugin>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
@@ -163,28 +199,7 @@
 					</connectors>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<wtpversion>${wtp.version}</wtpversion>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>Apache Nexus</id>
-			<url>https://repository.apache.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	</project>
+</project>
