@@ -26,7 +26,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.marting</groupId>
+	<groupId>com.github.martin-g</groupId>
 	<artifactId>wicket-memcached-data-store</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1.0-SNAPSHOT</version>
