@@ -27,7 +27,7 @@
 	<groupId>com.github.martin-g</groupId>
 	<artifactId>wicket-memcached-data-store</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>Apache Wicket Memcached Page Store</name>
 	<description>An implementation of Apache Wicket's IDataStore that uses Memcached as a backend</description>
 
