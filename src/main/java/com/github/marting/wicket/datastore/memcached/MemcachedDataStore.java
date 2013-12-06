@@ -220,7 +220,7 @@ public class MemcachedDataStore implements IDataStore
 		// See net.spy.memcached.MemcachedClient.set(java.lang.String, int, java.lang.Object)()
 //		Time timeToExpire = Time.now().add(expirationTime);
 
-		client.set(key, (int) expirationTime.getMilliseconds(), data);
+		client.set(key, (int) expirationTime.seconds(), data);
 		keys.add(key);
 		LOG.debug("Stored data for session '{}' and page id '{}'", sessionId, pageId);
 	}
